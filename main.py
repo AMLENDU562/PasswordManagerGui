@@ -38,11 +38,11 @@ def setRandomPassword():
 window = Tk()
 
 window.minsize(width=550, height=450)
-window.title("Password Manager Generator")
+window.title("Password Generator Mangager")
 window.configure(bg="#F7F9F2",padx=50,pady=50)
 
 canvas = Canvas(window, height=150, width=180,bg=bgcolor,highlightthickness=0)
-text = canvas.create_text(100, 100, text="🔒", font=(FONT_NAME, 70, "bold"),fill="white")
+text = canvas.create_text(100, 100, text="🔒", font=(FONT_NAME, 70, "bold"),fill="#A73121")
 canvas.pack()
 
 name_label = Label(window, text="Name:", font=(FONT_NAME, 20, "bold"))
