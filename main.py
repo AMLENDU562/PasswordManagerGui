@@ -1,6 +1,7 @@
 FONT_NAME = "Arial"
 bgcolor="#F7F9F2"
 from tkinter import *
+import json
 from tkinter import messagebox
 import random
 def PasswordGenerator():
@@ -25,15 +26,46 @@ def PasswordGenerator():
     return password
 
 def FileHandle():
-    with open("text.txt", "a") as file:
-        file.write(f"Name: {name_input.get()} | Email: {email_input.get()} | Password: {password_input.get()}\n")
-    messagebox.askquestion("Message","Successfully Generated!!")
+    name=name_input.get()
+    email=email_input.get()
+    password=password_input.get()
+    data={
+        name:{
+            "email":email,
+            "password":password
+        }
+    }
+    try:
+        with open("text.json", "r") as file:
+            d=json.load(file)
+            d.update(data)
+    except FileNotFoundError:
+        d=data
+    finally:
+        with open("text.json","w") as file:
+            json.dump(d,file,indent=4)
+        messagebox.askquestion("Message","Successfully Generated!!")
 
 
 def setRandomPassword():
     password_input.delete(0,END)
     password_=PasswordGenerator()
     password_input.insert(0,password_)
+
+def find_password():
+    name=name_input.get()
+    try:
+        with open("text.json","r") as file:
+            d=json.load(file)
+            output=d[name]
+            messagebox.askquestion(f"{name}",f"Email : {output['email']}\nPassword:{output['password']}")
+
+
+    except FileNotFoundError:
+        messagebox.askquestion("Message","FileNotFound")
+    except KeyError:
+        messagebox.askquestion("Message","No details for website")
+
 
 window = Tk()
 
@@ -47,14 +79,17 @@ canvas.pack()
 
 name_label = Label(window, text="Name:", font=(FONT_NAME, 20, "bold"))
 name_label.config(bg=bgcolor)
-name_label.place(x=10, y=170)
+name_label.place(x=10, y=180)
 
 name_input = Entry(window, width=20, font=(FONT_NAME, 12))
 name_input.place(x=160, y=180)
 
+search_button = Button(window, text="Search", command=find_password, padx=10, pady=3,font=("times new roman", 10,"bold"),relief="groove",width=5)
+search_button.place(x=350, y=180)
+
 email_label = Label(window, text="Email:", font=(FONT_NAME, 20, "bold"))
 email_label.config(bg=bgcolor)
-email_label.place(x=10, y=210)
+email_label.place(x=10, y=220)
 
 email_input = Entry(window, width=20, font=(FONT_NAME, 12))
 email_input.place(x=160, y=220)
