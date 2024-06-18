@@ -1,39 +1,14 @@
 FONT_NAME = "Arial"
 bgcolor="#F7F9F2"
 from tkinter import *
-from tkinter import messagebox
-import random
-def PasswordGenerator():
-    nr_letters=random.randint(8,10)
-    nr_numbers=random.randint(2,4)
-    nr_symbols=random.randint(2,4)
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
-    password_list=[]
-    for i in range(0,nr_letters):
-        password_list.append(random.choice(letters))
-    for i in range(0,nr_numbers):
-        password_list.append(random.choice(numbers))
-    for i in range(0,nr_symbols):
-        password_list.append(random.choice(symbols))
-
-    random.shuffle(password_list)
-    password=""
-    for s in password_list:
-        password+=s
-    return password
 
 def FileHandle():
     with open("text.txt", "a") as file:
         file.write(f"Name: {name_input.get()} | Email: {email_input.get()} | Password: {password_input.get()}\n")
-    messagebox.askquestion("Message","Successfully Generated!!")
-
 
 def setRandomPassword():
     password_input.delete(0,END)
-    password_=PasswordGenerator()
-    password_input.insert(0,password_)
+    password_input.insert(0,"Amlendu786")
 
 window = Tk()
 
